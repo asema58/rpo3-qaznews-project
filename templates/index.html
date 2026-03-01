@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hot news today -->
+<section class="hot-news">
+    <h2 class="section-title">Hot news today</h2>
+    <div class="hot-news-grid">
+        {% for post in latest_posts %}
+        <a href="{% url 'read_news' post.pk %}" class="hot-news-card">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+            <img src="{% static 'css/no-image.jpg' %}" alt="no image">
+            {% endif %}
+            <div class="hot-news-info">
+                <h3>{{ post.title|truncatechars:50 }}</h3>
+                <span>{{ post.created_at|date:"d.m.Y" }}</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- All news + Advertising -->
+<div class="news-ads-row">
+    <section class="all-news-section">
+        <h2 class="section-title">All news</h2>
+        {% for post in random_posts %}
+        <a href="{% url 'read_news' post.pk %}" class="news-card">
+            <div class="news-card-img">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+            </div>
+            <div class="news-card-info">
+                <h3>{{ post.title|truncatechars:50 }}</h3>
+                <span class="date">{{ post.created_at|date:"d.m.Y" }}</span>
+                <span class="category">{{ post.category.name }}</span>
+                <p>{{ post.content|truncatechars:120 }}</p>
+                <span class="read-more">READ</span>
+            </div>
+        </a>
+        {% endfor %}
+        <a href="{% url 'all_news' %}" class="see-all">See All</a>
+    </section>
+
+    <aside class="advertising">
+        <h2 class="section-title">Advertising</h2>
+        {% for ad in ads %}
+        <a href="{{ ad.url }}" class="ad-card" target="_blank">
+            {% if ad.image %}
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+            {% endif %}
+        </a>
+        {% endfor %}
+    </aside>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QazNews</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="{% url 'index' %}" class="logo">QazNews</a>
+        <nav class="nav">
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'all_news' %}">Все новости</a>
+            <a href="{% url 'search' %}">Поиск</a>
+            {% for cat in categories %}
+            <a href="{% url 'news_by_category' cat.slug %}">{{ cat.name }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>2026 QazNews. Все права защищены.</p>
+    </div>
+</footer>
+
+</body>
+</html>

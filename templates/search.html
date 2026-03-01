@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="news-ads-row">
+    <section class="all-news-section">
+        <h2 class="section-title">Search news</h2>
+        <div class="search-form">
+            <p>Enter news title or description</p>
+            <form action="{% url 'search_results' %}" method="GET">
+                <input type="text" name="q" placeholder="Title or description" class="search-input">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <aside class="advertising">
+        <h2 class="section-title">Advertising</h2>
+        {% for ad in ads %}
+        <a href="{{ ad.url }}" class="ad-card" target="_blank">
+            {% if ad.image %}
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+            {% endif %}
+        </a>
+        {% endfor %}
+    </aside>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="news-ads-row">
+    <article class="read-news-content">
+        <h1>{{ post.title }}</h1>
+        <span class="date">{{ post.created_at|date:"d.m.Y" }}</span>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="read-news-img">
+        {% endif %}
+        <p class="read-news-text">{{ post.content }}</p>
+        <span class="category">#{{ post.category.name }}</span>
+
+        {% if related_posts %}
+        <h2 class="section-title" style="margin-top:30px;">Похожие новости</h2>
+        {% for rpost in related_posts %}
+        <a href="{% url 'read_news' rpost.pk %}" class="news-card">
+            <div class="news-card-img">
+                {% if rpost.image %}
+                <img src="{{ rpost.image.url }}" alt="{{ rpost.title }}">
+                {% endif %}
+            </div>
+            <div class="news-card-info">
+                <h3>{{ rpost.title|truncatechars:50 }}</h3>
+                <span class="date">{{ rpost.created_at|date:"d.m.Y" }}</span>
+                <span class="read-more">READ</span>
+            </div>
+        </a>
+        {% endfor %}
+        {% endif %}
+    </article>
+
+    <aside class="advertising">
+        <h2 class="section-title">Advertising</h2>
+        {% for ad in ads %}
+        <a href="{{ ad.url }}" class="ad-card" target="_blank">
+            {% if ad.image %}
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+            {% endif %}
+        </a>
+        {% endfor %}
+    </aside>
+</div>
+
+{% endblock %}
