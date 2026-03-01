@@ -19,7 +19,7 @@ SECRET_KEY = 'django-insecure-(u5-%h0$wksy1d&)x#da$%4+yp3hm*ildclgy0mcn9ji4isq53
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rpo3qaznewsss.pythonanywhere.com']
 
 
 
